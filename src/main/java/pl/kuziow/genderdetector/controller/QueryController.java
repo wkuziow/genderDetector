@@ -1,28 +1,32 @@
 package pl.kuziow.genderdetector.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pl.kuziow.genderdetector.response.Response;
 import pl.kuziow.genderdetector.service.QueryService;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
 @RequestMapping("/query") //http://localhost:8080/gender-detector/query
 public class QueryController {
 
-    @Autowired
+    final
     QueryService queryService;
 
-    @GetMapping(path = "/name", //http://localhost:8080/gender-detector/query/name?name=
+    public QueryController(QueryService queryService) {
+        this.queryService = queryService;
+    }
+
+    @GetMapping(path = "/name", //http://localhost:8080/gender-detector/query/name?variant={one OR other value}&name={nameString}
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public String getName(@RequestParam String name) {
-        queryService.createNameList(name);
-        return name;
+    public Response getName(@RequestParam(required = false, defaultValue = "") String variant, @RequestParam String name) {
+        List<String> namesList = queryService.createNameList(variant, name);
+        List<Response> responseList = queryService.createGenderList(namesList);
+        return queryService.genderResponse(responseList);
     }
 
 
