@@ -1,6 +1,11 @@
 package pl.kuziow.genderdetector.service.impl;
 
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
+import com.opencsv.exceptions.CsvValidationException;
 import org.springframework.stereotype.Service;
+import pl.kuziow.genderdetector.exceptions.ErrorMessages;
+import pl.kuziow.genderdetector.exceptions.QueryException;
 import pl.kuziow.genderdetector.response.Response;
 import pl.kuziow.genderdetector.service.QueryService;
 
@@ -52,6 +57,41 @@ public class QueryServiceImpl implements QueryService {
         return Response.INCONCLUSIVE;
     }
 
+    @Override
+    public List<String> getListOfNames(String gender, int page, int limit) {
+        List<String> nameList = new ArrayList<>();
+        int skipLines = limit * page;
+        csvReader(gender, limit, nameList, skipLines);
+
+        return nameList;
+    }
+
+    private void csvReader(String gender, int limit, List<String> nameList, int skipLines) {
+        try {
+            CSVReader reader = new CSVReaderBuilder(new FileReader(genderFileMatcher(gender)))
+                    .withSkipLines(skipLines)
+                    .build();
+            int i = 0;
+            nameList.add(reader.peek()[0]);
+            while (reader.readNext() != null && i < limit - 1) {
+                nameList.add(reader.peek()[0]);
+                i++;
+            }
+        } catch (CsvValidationException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String genderFileMatcher(String gender) {
+        if (gender.equalsIgnoreCase("male")) {
+            return maleFile;
+        } else if (gender.equalsIgnoreCase("female")) {
+            return femaleFile;
+        } else {
+            throw new QueryException(ErrorMessages.WRONG_QUERY.getErrorMessage());
+        }
+    }
+
     private List<Response> mapComparer(List<String> nameList, Map<String, Integer> femaleMap, Map<String, Integer> maleMap) {
         List<Response> responseList = new ArrayList<>();
 
@@ -93,8 +133,9 @@ public class QueryServiceImpl implements QueryService {
                 if (line.equals(name)) {
                     return lineCounter;
                 }
-                bufferedReader.close();//todo sprawdzić czy działa
+
             }
+            bufferedReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

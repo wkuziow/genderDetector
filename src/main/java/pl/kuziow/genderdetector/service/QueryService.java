@@ -9,4 +9,6 @@ public interface QueryService {
     List<Response> createGenderList(List<String> nameList);
 
     Response genderResponse(List<Response> responseList);
+
+    List<String> getListOfNames(String gender, int page, int limit);
 }

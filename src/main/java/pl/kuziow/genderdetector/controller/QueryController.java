@@ -30,11 +30,12 @@ public class QueryController {
     }
 
 
-
-    @GetMapping(path = "/gender", //http://localhost:8080/gender-detector/query/gender?gender=
+    @GetMapping(path = "/gender", //http://localhost:8080/gender-detector/query/gender?gender=&page=&limit=
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public String getListOfNames(@RequestParam String gender) {
-        return gender;
+    public List<String> getListOfNames(@RequestParam String gender,
+                                       @RequestParam(value = "page", defaultValue = "0") int page,
+                                       @RequestParam(value = "limit", defaultValue = "25") int limit) {
+        return queryService.getListOfNames(gender, page, limit);
     }
 
 }
