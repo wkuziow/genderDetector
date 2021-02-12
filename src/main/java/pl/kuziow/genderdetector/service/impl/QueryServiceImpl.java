@@ -24,7 +24,7 @@ public class QueryServiceImpl implements QueryService {
     public List<String> createNameList(String variant, String name) {
         String[] tokenArray = name.toUpperCase().split(" +");
         if (variant.equalsIgnoreCase("one")) {
-            return Collections.singletonList(tokenArray[0]);
+            return Arrays.asList(tokenArray[0]);
         }
         return Arrays.asList(tokenArray);
     }
