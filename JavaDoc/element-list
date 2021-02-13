@@ -1,0 +1,6 @@
+pl.kuziow.genderdetector
+pl.kuziow.genderdetector.controller
+pl.kuziow.genderdetector.exceptions
+pl.kuziow.genderdetector.response
+pl.kuziow.genderdetector.service
+pl.kuziow.genderdetector.service.impl

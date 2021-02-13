@@ -1,5 +1,8 @@
 package pl.kuziow.genderdetector.exceptions;
 
+/**
+ * Enum with defined errors and error messages
+ */
 public enum ErrorMessages {
 
     MISSING_REQUIRED_FIELD("Missing required field. Please check documentation for required fields"),
@@ -21,11 +24,5 @@ public enum ErrorMessages {
         return errorMessage;
     }
 
-    /**
-     * @param errorMessage the errorMessage to set
-     */
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
 
 }

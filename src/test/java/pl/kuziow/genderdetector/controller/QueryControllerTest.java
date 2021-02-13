@@ -12,6 +12,9 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
+/**
+ * test class for QueryController.class
+ */
 class QueryControllerTest {
 
     @InjectMocks
@@ -20,7 +23,7 @@ class QueryControllerTest {
     @Mock
     QueryService queryService;
 
-    String name1 = "jan maria anna karol piotr";
+    final String name1 = "jan maria anna karol piotr";
     String name2 = "unknown name";
 
     @BeforeEach
@@ -28,6 +31,10 @@ class QueryControllerTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * method tests getName method
+     * it tests if first token of the name1 String is male
+     */
     @Test
     void getName() {
         when(queryController.getName(anyString(), anyString())).thenReturn(Response.MALE);

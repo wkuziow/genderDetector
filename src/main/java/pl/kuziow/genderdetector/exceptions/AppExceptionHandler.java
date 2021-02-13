@@ -9,6 +9,9 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.util.Date;
 
+/**
+ * Class necessary to handle exceptions
+ */
 @ControllerAdvice
 public class AppExceptionHandler {
 
@@ -28,7 +31,6 @@ public class AppExceptionHandler {
 
         return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
 
 
 }

@@ -2,6 +2,9 @@ package pl.kuziow.genderdetector.exceptions;
 
 import java.util.Date;
 
+/**
+ * Setting timestamp and custom message for errors
+ */
 public class ErrorMessage {
     private Date timestamp;
     private String message;
@@ -15,11 +18,7 @@ public class ErrorMessage {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
+    public String getMessage() {
+        return message;
     }
 }

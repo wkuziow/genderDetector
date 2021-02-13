@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"pl.kuziow.genderdetector"},{"l":"pl.kuziow.genderdetector.controller"},{"l":"pl.kuziow.genderdetector.exceptions"},{"l":"pl.kuziow.genderdetector.response"},{"l":"pl.kuziow.genderdetector.service"},{"l":"pl.kuziow.genderdetector.service.impl"}];updateSearchResults();
